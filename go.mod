@@ -1,6 +1,6 @@
 module gallery
 
-go 1.18
+go 1.17
 
 require (
 	github.com/brianvoe/gofakeit/v6 v6.17.0
@@ -66,7 +66,7 @@ require (
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/mattn/go-sqlite3 v1.14.14 // indirect
-	github.com/microcosm-cc/bluemonday v1.0.18 // indirect
+	github.com/microcosm-cc/bluemonday v1.0.19 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/monoculum/formam v3.5.5+incompatible // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
