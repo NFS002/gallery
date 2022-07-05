@@ -1,39 +1,29 @@
-# Welcome to Buffalo
+# Gallery
 
-Thank you for choosing Buffalo for your web development needs.
+### Gallery is a simple web app that builds a network based on 3 archetypes:
 
-## Database Setup
+- Hosts. Anyone can sign up to be a host, the host role entails that you are willing to be contacted 
+by artists who have signed up fot the platform and would potentially agree to host and display 
+some artists work whom you have met and spoken with to the public on arranged times/dates.
 
-It looks like you chose to set up your application using a database! Fantastic!
+- Artists are pretty much what you would expect. For example, someone who has created a small collection of
+pottery can sign up to this platform, contact hosts in their area and hopefully arrange a home exhibition.00  
 
-The first thing you need to do is open up the "database.yml" file and edit it to use the correct usernames, passwords, hosts, etc... that are appropriate for your environment.
+- Viewers, anyone with an interest in appreciating art can browse current exhibitions and their location on gallery, 
+and then email the host via gallery to check if they can come for a viewing.
 
-You will also need to make sure that **you** start/install the database of your choice. Buffalo **won't** install and start it for you.
 
-### Create Your Databases
+## TechStack
+- PostgreSQL
+- [Gobuffalo framework for golang](https://gobuffalo.io)
+  - [pop: sort-of-orm database tool for gobuffalo](https://github.com/gobuffalo/pop)
+  - [plush: html/golang temlplates for gobuffalo](https://github.com/gobuffalo/plush)
 
-Ok, so you've edited the "database.yml" file and started your database, now Buffalo can create the databases in that file for you:
+## Running locally
 
-```console
-buffalo pop create -a
-```
+1. [Install buffalo](https://gobuffalo.io/documentation/getting_started/installation/)
 
-## Starting the Application
-
-Buffalo ships with a command that will watch your application and automatically rebuild the Go binary and any assets for you. To do that run the "buffalo dev" command:
-
-```console
+2. Start the development server
+```shell
 buffalo dev
 ```
-
-If you point your browser to [http://127.0.0.1:3000](http://127.0.0.1:3000) you should see a "Welcome to Buffalo!" page.
-
-**Congratulations!** You now have your Buffalo application up and running.
-
-## What Next?
-
-We recommend you heading over to [http://gobuffalo.io](http://gobuffalo.io) and reviewing all of the great documentation there.
-
-Good luck!
-
-[Powered by Buffalo](http://gobuffalo.io)
