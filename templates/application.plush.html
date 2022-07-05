@@ -3,19 +3,78 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-    <title>Buffalo - Gallery</title>
+    <title>Gallery</title>
     <%= stylesheetTag("application.css") %>
+    <%
+    <%= if (custom_css_paths && len(custom_css_paths) > 0) { %>
+    <%=  for (idx, custom_css_path) in custom_css_paths { %>
+    <%=   stylesheetTag(custom_css_path) %>
+    <%  } %>
+    <% } %>
     <meta name="csrf-param" content="authenticity_token" />
     <meta name="csrf-token" content="<%= authenticity_token %>" />
     <link rel="icon" href="<%= assetPath("images/favicon.ico") %>">
   </head>
   <body>
-
     <div class="container">
       <%= partial("flash.html") %>
-      <%= yield %>
-    </div>
+      <header>
+        <div class="container">
+          <div>
+            <div>
+              <a class="logo-banner" href="<%= rootPath() %>">
+                <p class="gallery-logo">
+                  <%= if (heading_text && len(heading_text) > 0) { %>
+                    <%= heading_text  %>
+                  <% } else { %>
+                    Gallery
+                  <% } %>
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="subtitle">
+            <div class="ps-2 pe-2 border-top border-bottom">
+              <%= if (search_menu_partial_path && len(search_menu_partial_path) > 0) { %>
+              <%= partial(search_menu_partial_path) %>
+              <% } %>
+            </div>
+          </div>
+          <%= yield %>
+          <div class="container border border-dark rounded-2 p-2 bg-light">
+            <div class="text-lg-start">
+              The gallery project is network of artists, home-based galleries, and viewers.
+              In essence, artists may use gallery to find and connect with people who volunteer
+              to display artwork or creative exhibitions in spare rooms their home, and agree to
+              host viewings to the public. The public looking to discover and appreciate new art
+              may agree to host an exhibition or just use gallery to browse current exhibitions.
+              The gallery sites are:
+              <ul class="rounded-2 list-group list-group-flush">
 
+                <li class="list-group-item"><a href="<%= artistsLoginPath() %>">
+                  Gallery for artists
+                </a></li>
+                <li class="list-group-item"><a href="<%= hostsLoginPath() %>">
+                  Gallery for hosts
+                </a></li>
+                <li class="list-group-item"><a href="<%= allExhibitionsPath() %>">
+                  Browse current exhibitions
+                </a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <%= javascriptTag("application.js") %>
+    <%= if (custom_js_paths && len(custom_js_paths) > 0) { %>
+    <%=  for (idx, custom_js_path) in custom_js_paths { %>
+    <%=   javascriptTag(custom_js_path)
+    <%  } %>
+    <% } %>
   </body>
 </html>

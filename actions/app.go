@@ -1,18 +1,15 @@
 package actions
 
 import (
+	obs "gallery/observability"
+	"gallery/public"
+	"github.com/sirupsen/logrus"
 	"net/http"
 
-	"gallery/locales"
-	"gallery/models"
-	"gallery/public"
-
 	"github.com/gobuffalo/buffalo"
-	"github.com/gobuffalo/buffalo-pop/v3/pop/popmw"
 	"github.com/gobuffalo/envy"
 	csrf "github.com/gobuffalo/mw-csrf"
 	forcessl "github.com/gobuffalo/mw-forcessl"
-	i18n "github.com/gobuffalo/mw-i18n/v2"
 	paramlogger "github.com/gobuffalo/mw-paramlogger"
 	"github.com/unrolled/secure"
 )
@@ -23,7 +20,6 @@ var ENV = envy.Get("GO_ENV", "development")
 
 var (
 	app *buffalo.App
-	T   *i18n.Translator
 )
 
 // App is where all routes and middleware for buffalo
@@ -39,11 +35,14 @@ var (
 // `ServeFiles` is a CATCH-ALL route, so it should always be
 // placed last in the route declarations, as it will prevent routes
 // declared after it to never be called.
+
 func App() *buffalo.App {
 	if app == nil {
 		app = buffalo.New(buffalo.Options{
+			Host:        "localhost",
 			Env:         ENV,
 			SessionName: "_gallery_session",
+			Logger:      obs.JSONLogger(logrus.InfoLevel),
 		})
 
 		// Automatically redirect to SSL
@@ -56,14 +55,15 @@ func App() *buffalo.App {
 		// Remove to disable this.
 		app.Use(csrf.New)
 
-		// Wraps each request in a transaction.
-		//   c.Value("tx").(*pop.Connection)
-		// Remove to disable this.
-		app.Use(popmw.Transaction(models.DB))
-		// Setup and use translations:
-		app.Use(translations())
-
 		app.GET("/", HomeHandler)
+
+		app.GET("/exhibitions", GetAllExhibitionsHandler).Name("allExhibitions")
+
+		artistsSubApp := app.Group("/a")
+		configureArtistRoutes(artistsSubApp)
+
+		hostsSubApp := app.Group("/h")
+		configureHostRoutes(hostsSubApp)
 
 		app.ServeFiles("/", http.FS(public.FS())) // serve files from the public directory
 	}
@@ -71,16 +71,16 @@ func App() *buffalo.App {
 	return app
 }
 
-// translations will load locale files, set up the translator `actions.T`,
-// and will return a middleware to use to load the correct locale for each
-// request.
-// for more information: https://gobuffalo.io/en/docs/localization
-func translations() buffalo.MiddlewareFunc {
-	var err error
-	if T, err = i18n.New(locales.FS(), "en-US"); err != nil {
-		app.Stop(err)
-	}
-	return T.Middleware()
+func configureArtistRoutes(subApp *buffalo.App) {
+	subApp.GET("/", ArtistsLoginHandler).Name("artistsLogin")
+	subApp.POST("/create", ArtistsCreatePostHandler).Name("artistsCreatePost")
+	subApp.POST("/login", LoginPostHandler).Name("artistsLoginPost")
+}
+
+func configureHostRoutes(subApp *buffalo.App) {
+	subApp.GET("/", HostsLoginHandler).Name("hostsLogin")
+	subApp.POST("/create", HostsCreatePostHandler).Name("hostsCreatePost")
+	subApp.POST("/login", LoginPostHandler).Name("hostsLoginPost")
 }
 
 // forceSSL will return a middleware that will redirect an incoming request

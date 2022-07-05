@@ -1,0 +1,38 @@
+<div class="container border border-dark bg-light rounded-2 p-2 mb-2">
+    <h3 class="green-underline">
+        Current exhibitions
+    </h3>
+</div>
+<hr/>
+<table id="exhibitions-table" class="display" style="width:100%" aria-label="Table of all current exhibitions">
+    <thead>
+    <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Starting</th>
+        <th scope="col">Ending</th>
+        <th scope="col">Host</th>
+        <th scope="col">Artist</th>
+        <th scope="col">Location</th>
+        <th scope="col">Email the host</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%= if (exhibitions && len(exhibitions) > 0) { %>
+        <%=  for (idx, exhibition) in exhibitions { %>
+            <tr>
+                <td> <%= exhibition.Title  %> </td>
+                <td> <%= exhibition.StartDate()  %> </td>
+                <td> <%= exhibition.EndDate() %> </td>
+                <td> <%= exhibition.Host.FullName()  %> </td>
+                <td> <%= exhibition.Artist.FullName()  %> </td>
+                <td> <%= exhibition.Location()  %> </td>
+                <td class="email-host"><i class="fa fa-envelope"></i> </td>
+            </tr>
+        <%  } %>
+    <% } %>
+    </tbody>
+    <tfoot>
+    </tfoot>
+</table>
+
+<hr/>

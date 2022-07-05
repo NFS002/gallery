@@ -1,0 +1,1 @@
+truncate exhibitions cascade;

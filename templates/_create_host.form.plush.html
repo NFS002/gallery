@@ -1,0 +1,62 @@
+<%= form({action: hostsCreatePostPath(), method: "POST"}) { %>
+<div class="row">
+
+    <div class="row">
+        <div class="col-md-6">
+            <%= f.InputTag({name: "First Name", label: "First Name"}) %>
+        </div>
+        <div class="col-md-6">
+            <%= f.InputTag({name: "Last Name", label: "Last Name"}) %>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <%= f.InputTag({name: "Address Line 1", label: "Address Line 1" })%>
+        </div>
+        <div class="col-md-6">
+            <%= f.InputTag({name: "Address Line 2", label: "Address Line 2" }) %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <%= f.InputTag({name: "City", label: "City" })%>
+        </div>
+        <div class="col-md-6">
+            <%= f.InputTag({name: "Postcode", label: "Postcode" }) %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <%= f.InputTag({name: "Email", label: "Email" })%>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <%= f.InputTag({name: "Phone", label: "PhoneNumber" })%>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <%= f.InputTag({name: "Password", label: "Password", type: "password" })%>
+        </div>
+
+        <div class="col-md-6">
+            <%= f.InputTag({name: "Password2", label: "Repeat Password", type: "password" })%>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center mt-2">
+            <button class="btn btn-outline-primary" type="submit">
+                Signup
+            </button>
+        </div>
+    </div>
+</div>
+<% } %>

@@ -1,4 +1,28 @@
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
-
 @import "buffalo";
+
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Alata&family=Mali:wght@300&display=swap');
+
+.logo-banner {
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 2px;
+  background-color: #62a5ee;
+  .gallery-logo {
+    font-size: 4pc;
+    color: #EEE;
+    font-family: 'Alata', sans-serif;
+  }
+}
+
+
+.green-underline {
+  border-bottom: 4px solid #00ff16;
+}
+
+.email-host {
+  cursor: pointer;
+  text-align: center;
+  color: #6495ed;
+}
