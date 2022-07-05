@@ -2,7 +2,6 @@
 # https://docs.docker.com/engine/userguide/eng-image/multistage-build/
 FROM gobuffalo/buffalo:v0.18.6 as builder
 
-ENV GOPROXY http://proxy.golang.org
 ENV GO_ENV development
 
 RUN mkdir -p /src/gallery
@@ -17,7 +16,7 @@ COPY go.mod go.mod
 COPY go.sum go.sum
 # cache deps before building and copying source so that we don't need to re-download as much
 # and so that source changes don't invalidate our downloaded layer
-# RUN go mod download
+RUN go mod download
 
 ADD . .
 RUN buffalo build --static -o /bin/app
@@ -26,6 +25,10 @@ FROM alpine
 RUN apk add --no-cache bash
 RUN apk add --no-cache ca-certificates
 
+WORKDIR /bin/
+
+COPY --from=builder /bin/app .
+
 # Uncomment to run the binary in "production" mode:
 
 # Bind the app to 0.0.0.0 so it can be seen from outside the container
@@ -33,6 +36,4 @@ ENV ADDR=0.0.0.0
 
 EXPOSE 3000
 
-# Uncomment to run the migrations before running the binary:
-# CMD /bin/app migrate; /bin/app
-CMD buffalo dev
+CMD /bin/app migrate; /bin/app
