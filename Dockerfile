@@ -38,3 +38,6 @@ COPY --from=builder /bin/app .
 ENV ADDR=0.0.0.0
 EXPOSE 3000
 
+
+CMD EXEC /bin/app
+
