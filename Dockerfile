@@ -6,6 +6,9 @@ FROM gobuffalo/buffalo:v0.18.6 as builder
 RUN mkdir -p /src/gallery
 WORKDIR /src/gallery
 
+
+ENV GO_ENV production
+
 # this will cache the npm install step, unless package.json changes
 ADD package.json .
 ADD yarn.lock .
