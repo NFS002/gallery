@@ -38,4 +38,3 @@ COPY --from=builder /bin/app .
 ENV ADDR=0.0.0.0
 EXPOSE 3000
 
-CMD /bin/app migrate; /bin/app task db:seed; /bin/app

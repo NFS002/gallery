@@ -5,3 +5,9 @@ setup:
 build:
   docker:
     gallery: Dockerfile
+release:
+  image: gallery
+  command:
+    - /bin/app migrate; /bin/app task db:seed
+run:
+  gallery: /bin/app
