@@ -2,15 +2,14 @@
 # https://docs.docker.com/engine/userguide/eng-image/multistage-build/
 FROM gobuffalo/buffalo:v0.18.6 as builder
 
-ENV GO_ENV development
-
+# ENV GOPROXY http://proxy.golang.org
 RUN mkdir -p /src/gallery
 WORKDIR /src/gallery
 
 # this will cache the npm install step, unless package.json changes
 ADD package.json .
 ADD yarn.lock .
-RUN yarn install --no-progress
+# RUN yarn install --no-progress
 # Copy the Go Modules manifests
 COPY go.mod go.mod
 COPY go.sum go.sum
@@ -19,6 +18,7 @@ COPY go.sum go.sum
 RUN go mod download
 
 ADD . .
+RUN yarn install
 RUN buffalo build --static -o /bin/app
 
 FROM alpine
@@ -34,6 +34,4 @@ COPY --from=builder /bin/app .
 # Bind the app to 0.0.0.0 so it can be seen from outside the container
 ENV ADDR=0.0.0.0
 
-EXPOSE 3000
-
-CMD /bin/app migrate; /bin/app
+CMD /bin/app migrate; /bin/app task db:seed; /bin/app

@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  gallery:
+    image: nfs002/gallery:latest
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./.env
