@@ -13,7 +13,7 @@ pottery can sign up to this platform, contact hosts in their area and hopefully 
 and then email the host via gallery to check if they can come for a viewing.
 
 
-### A containerised **MVP** is deployed on heroku [here](https://heroku-gallery-development.herokuapp.com/exhibitions/)
+### A containerised **MVP** is deployed on heroku [here](https://heroku-gallery-development.herokuapp.com)
 
 
 ## TechStack
@@ -21,7 +21,7 @@ and then email the host via gallery to check if they can come for a viewing.
 - [Gobuffalo framework for golang](https://gobuffalo.io)
   - [pop: sort-of-orm database tool for gobuffalo](https://github.com/gobuffalo/pop)
   - [plush: html/golang temlplates for gobuffalo](https://github.com/gobuffalo/plush)
-  - [Heroku PaaS](https://www.heroku.com/platform)
+- [Heroku PaaS](https://www.heroku.com/platform)
 
 ## Running locally
 
